@@ -10,7 +10,7 @@ REPOSITRY = os.environ['REPOSITRY']
 if __name__ == '__main__':
     g = Github(TOKEN)
 
-    for _repo in g.get_organization(ORGANIZATION).get_repos(type='public'):
+    for _repo in g.get_organization(ORGANIZATION).get_repos():
         if _repo.name == REPOSITRY:
             repo = _repo
             break
