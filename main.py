@@ -33,8 +33,8 @@ def count_issues(issues: PaginatedList):
     count_critical = 0
     count_high = 0
     count_medium = 0
-    for i in issues:
-        for label in i.labels:
+    for issue in issues:
+        for label in issue.labels:
             if SECURITYHUB_CRITICAL_LABELS == label.name:
                 count_critical += 1
             elif SECURITYHUB_HIGH_LABELS == label.name:
