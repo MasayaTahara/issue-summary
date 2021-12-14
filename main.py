@@ -12,6 +12,7 @@ REPOSITRY = os.environ['REPOSITRY']
 SECURITYHUB_CRITICAL_LABELS = 'securityhub/CRITICAL'
 SECURITYHUB_HIGH_LABELS = 'securityhub/HIGH'
 SECURITYHUB_MEDIUM_LABELS = 'securityhub/MEDIUM'
+SECURITYHUB_INPROGRESS_LABELS = 'securityhub/inprogress'
 
 
 def get_repo(g: Github, organization, repository) -> Repository:
@@ -42,6 +43,22 @@ def count_issues(issues: PaginatedList):
     return [count_critical, count_high, count_medium]
 
 
+def count_inprogress_issues(issues: PaginatedList):
+    count_critical = 0
+    count_high = 0
+    count_medium = 0
+    for issue in issues:
+        if SECURITYHUB_INPROGRESS_LABELS in [labels.name for labels in issue.labels]:
+            for label in issue.labels:
+                if SECURITYHUB_CRITICAL_LABELS == label.name:
+                    count_critical += 1
+                elif SECURITYHUB_HIGH_LABELS == label.name:
+                    count_high += 1
+                if SECURITYHUB_MEDIUM_LABELS == label.name:
+                    count_medium += 1
+    return [count_critical, count_high, count_medium]
+
+
 if __name__ == '__main__':
     g = Github(TOKEN)
     repo = get_repo(g, ORGANIZATION, REPOSITRY)
@@ -49,8 +66,13 @@ if __name__ == '__main__':
 
     open_issues = get_issues(repo, state='open')
     counted_open_issues = count_issues(open_issues)
-    print('Open issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(counted_open_issues))
+    print('Open issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(
+        counted_open_issues))
+    counted_inprogress_issues = count_inprogress_issues(open_issues)
+    print('In progress issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(
+        counted_inprogress_issues))
 
     closed_issues = get_issues(repo, state='closed')
     counted_closed_issues = count_issues(closed_issues)
-    print('Closed issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(counted_closed_issues))
+    print('Closed issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(
+        counted_closed_issues))
