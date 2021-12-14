@@ -49,8 +49,8 @@ if __name__ == '__main__':
 
     open_issues = get_issues(repo, state='open')
     counted_open_issues = count_issues(open_issues)
-    print('Open issues: {}'.format(counted_open_issues))
+    print('Open issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(counted_open_issues))
 
     closed_issues = get_issues(repo, state='closed')
     counted_closed_issues = count_issues(closed_issues)
-    print('Closed issues: {}'.format(counted_closed_issues))
+    print('Closed issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(counted_closed_issues))
