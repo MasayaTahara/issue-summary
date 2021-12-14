@@ -1,8 +1,6 @@
 import os
-from typing import List
 from dotenv import load_dotenv
 from github import Github
-from github.Issue import Issue
 from github.PaginatedList import PaginatedList
 from github.Repository import Repository
 
