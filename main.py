@@ -20,9 +20,14 @@ if __name__ == '__main__':
     counted_open_issues = issues.count_issues(open_issues)
     print('Open issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(
         counted_open_issues))
+
     counted_inprogress_issues = issues.count_inprogress_issues(open_issues)
     print('In progress issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(
         counted_inprogress_issues))
+
+    counted_inreview_issues = issues.count_inreview_issues(open_issues)
+    print('In review issues: [CRITICAL, HIGH, MEDIUM] = {}'.format(
+        counted_inreview_issues))
 
     closed_issues = rep.get_issues(repo, state='closed')
     counted_closed_issues = issues.count_issues(closed_issues)
